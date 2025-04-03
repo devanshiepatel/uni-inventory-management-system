@@ -1,0 +1,115 @@
+/* Dashboard.css */
+
+/* General Reset and Body Styles */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #e9ecef; /* Light grey background */
+    color: #333; /* Dark gray text for contrast */
+}
+
+/* Dashboard Container */
+.dashboard-container {
+    display: flex;
+    height: 100vh;
+    width: 100wh; /* Full viewport height */
+}
+
+/* Top Header Styles */
+.top-header {
+    background-color: #007bff; /* Bootstrap primary blue */
+    color: #fff; /* White text */
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+}
+
+.back-button {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    margin-right: 15px; /* Space between button and title */
+}
+
+.back-button:hover {
+    text-decoration: underline; /* Underline on hover */
+}
+
+/* Sidebar Styles */
+.sidebar {
+    width: 200px; /* Fixed width for sidebar */
+    background-color: #343a40; /* Dark sidebar background */
+    color: #ffffff; /* White text */
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.user-icon {
+    margin-bottom: 10px; /* Space below user icon */
+}
+
+.user-name {
+    font-size: 18px;
+    margin-bottom: 20px; /* Space below username */
+    text-align: center; /* Center user name */
+}
+
+/* Menu Options Styles */
+.menu-options {
+    width: 100%; /* Full width for buttons */
+}
+
+.menu-button {
+    background-color: #007bff; /* Button background color */
+    color: white;
+    border: none;
+    border-radius: 5px; /* Rounded corners */
+    padding: 10px; /* Inner spacing */
+    width: 100%; /* Full width for buttons */
+    cursor: pointer;
+    margin-bottom: 10px; /* Space between buttons */
+    transition: background-color 0.3s; /* Smooth transition for hover effect */
+}
+
+.menu-button:hover {
+    background-color: #0056b3; /* Darker button on hover */
+}
+
+/* Main Content Styles */
+.main-content {
+    flex-grow: 1; /* Allow main content to take the available space */
+    padding: 20px;
+    overflow-y: auto; /* Scroll if content overflows */
+}
+
+h2 {
+    color: #333333; /* Dark text for headings */
+    margin-bottom: 20px; /* Margin below the heading */
+}
+
+/* Rooms Grid Styles */
+.rooms-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Responsive grid layout */
+    gap: 20px; /* Space between cards */
+}
+
+/* Room Card Styles */
+.room-card {
+    background-color: #ffffff; /* White background for cards */
+    border: 1px solid #ced4da; /* Light border */
+    border-radius: 8px; /* Rounded corners */
+    padding: 15px; /* Inner spacing */
+    text-align: center; /* Center text in cards */
+    cursor: pointer; /* Pointer cursor for interactivity */
+    transition: transform 0.2s, box-shadow 0.2s; /* Animation for card effects */
+}
+
+.room-card:hover {
+    transform: translateY(-5px); /* Lift effect on hover */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Slight shadow on hover */
+}

@@ -1,0 +1,125 @@
+.rooms-container {
+    text-align: center;
+    padding: 20px;
+    height: 100vh;
+    width: 90vw;
+    margin-left: 100px;
+}
+/* Sidebar */
+.sidebar {
+    grid-row: 1 / -1; /* Sidebar spans the full height */
+    grid-column: 1 / 2;
+    background-color: #1F2937; /* Darker modern sidebar */
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-right: 1px solid #374151;
+    height: 100vh;
+    color: #E5E7EB;
+}
+
+/* User Info */
+.user-icon {
+    margin-bottom: 10px;
+    color: #9CA3AF;
+}
+
+.user-name {
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #E5E7EB;
+}
+
+/* Sidebar Menu */
+.menu-options {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.menu-button {
+    background-color: transparent;
+    border: none;
+    padding: 12px 15px;
+    text-align: left;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    color: #E5E7EB;
+}
+
+.menu-button:hover,
+.menu-button:focus {
+    background-color: #374151;
+    color: #93C5FD;
+}
+
+/* Top Header */
+.top-header {
+    grid-row: 1 / 2;
+    grid-column: 2 / -1;
+    background-color: #ffffff;
+    padding: 12px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #CBD5E0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+/* Back Button */
+.back-button {
+    background-color: transparent;
+    border: none;
+    color: #2563EB;
+    font-size: 0.9em; /* Made smaller */
+    cursor: pointer;
+    margin-right: 15px;
+    width: auto;
+    transition: color 0.3s ease;
+}
+
+.back-button:hover {
+    color: #1E40AF;
+}
+
+/* University Name */
+.university-name {
+    margin: 0;
+    font-size: 1.4em;
+    color: #1E293B;
+}
+
+/* Main Content */
+.main-content {
+   
+    padding: 4px;
+    width: 100vh;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+.rooms-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    width: auto;
+    margin-left: 350px;
+}
+
+.rooms-table th, .rooms-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+    color: black;
+    width: wrap;
+}
+
+.rooms-table th {
+    background-color: #ff7300;
+    width: auto;
+    color: white;
+}

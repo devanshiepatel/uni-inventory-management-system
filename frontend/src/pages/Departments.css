@@ -1,0 +1,148 @@
+/* General Page Styling */
+.departments-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background-color: white;
+    padding: 5px; /* Reduced side padding */
+}
+
+/* Header */
+.header {
+    background: linear-gradient(135deg, #FF7300, #FF4500);
+    display: flex;
+    justify-content: space-between;
+    color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.header h1 {
+    font-size: 26px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.profile-box {
+    width: 50px;
+    height: 50px;
+    background: #FF8C00;
+    border-radius: 10px;
+    transition: 0.3s;
+}
+
+.profile-box:hover {
+    background: #FF6100;
+}
+
+/* Departments Navigation Bar */
+.departments-nav {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    padding: 10px;
+    background-color: #FFD700;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(255, 165, 0, 0.3);
+}
+
+.department-tab {
+    padding: 10px 18px;
+    background-color: #fff;
+    border: 2px solid #FFA500;
+    color: #FF7300;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.department-tab:hover {
+    background-color: #FF7300;
+    color: white;
+}
+
+.department-tab.active {
+    background-color: #FF4500;
+    color: white;
+}
+
+/* Department Details Section */
+.department-content {
+    display: flex;
+    /* gap: 15px; */
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* Department Card */
+.department-card {
+    background-color: white;
+    border: 3px solid #FFA500;
+    border-radius: 12px;
+    width: 260px; /* Slightly reduced width */
+    text-align: center;
+    transition: 0.3s ease-in-out;
+    box-shadow: 0 5px 15px rgba(255, 140, 0, 0.3);
+    cursor: pointer;
+}
+
+.department-card:hover {
+    transform: scale(1.05);
+    border-color: #FF4500;
+    box-shadow: 0 5px 20px rgba(255, 140, 0, 0.4);
+}
+
+.department-card.active {
+    background: #FFF3E0;
+}
+
+/* Rooms Container */
+.department-rooms {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 15px;
+    width: 100%;
+    margin-top: 10px;
+}
+
+/* Room Cards */
+.room-card {
+    background-color: #ffffff;
+    border: 2px solid #FF8C00;
+    border-radius: 10px;
+    padding: 12px;
+    width: 210px;
+    text-align: center;
+    transition: 0.3s ease-in-out;
+    box-shadow: 0 5px 10px rgba(255, 140, 0, 0.3);
+}
+
+.room-card:hover {
+    background-color: #FFF3E0;
+    border-color: #FF4500;
+    transform: scale(1.05);
+    box-shadow: 0 5px 20px rgba(255, 140, 0, 0.4);
+}
+
+/* Room Titles */
+.room-card h2 {
+    font-size: 18px;
+    color: #FF7300;
+    margin-bottom: 8px;
+}
+.room-card h4 {
+    font-size: 18px;
+    color: black;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+/* Room Counts */
+.room-card p {
+    font-size: 16px;
+
+    color: black;
+}

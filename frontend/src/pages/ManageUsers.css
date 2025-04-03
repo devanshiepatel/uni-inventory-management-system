@@ -1,0 +1,311 @@
+/* Global Layout */
+/* Modified to cover entire viewport */
+.manage-users-container {
+    display: grid;
+    grid-template-columns: 240px 1fr; /* Sidebar fixed width; content takes remaining space */
+    grid-template-rows: auto 1fr; /* Header auto height; content fills remaining */
+    height: 100vh; /* Ensures full viewport height */
+    width: 100vw;  /* Ensures full viewport width */
+    font-family: 'Inter', sans-serif;
+    background-color: #F3F4F6;
+    color: #1E293B;
+    margin: 0;
+    padding: 0;
+}
+
+/* Adjusted Sidebar styling for improved spacing and readability */
+.sidebar {
+    grid-row: 1 / -1; /* Sidebar spans full height */
+    grid-column: 1 / 2;
+    background-color: #1F2937;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-right: 1px solid #374151;
+    color: #E5E7EB;
+}
+
+/* Sidebar Menu */
+.menu-options {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 20px; /* Added spacing */
+}
+
+/* Top Header - improved spacing and sticky behavior */
+.top-header {
+    grid-row: 1 / 2;
+    grid-column: 2 / -1;
+    background-color: #ffffff;
+    padding: 16px 20px; /* Increased padding for better spacing */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #CBD5E0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+/* University Name styling */
+.university-name {
+    margin: 0;
+    font-size: 1.5rem; /* Increased font size for better prominence */
+}
+
+/* Main Content - adjusted padding and background */
+.main-content {
+    grid-row: 2 / -1;
+    grid-column: 2 / -1;
+    padding: 20px; /* Adjust padding as needed */
+    box-sizing: border-box;
+    overflow-y: auto;
+    background-color: #ffffff;
+    min-height: calc(100vh - 60px);
+}
+
+/* Removed extra container shadow/card styling to let the main content cover full area */
+/* User Form styling with improved spacing */
+.user-form {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    max-width: 800px; /* Added margin for separation */
+}
+
+/* Input fields and labels styling for better accessibility */
+.user-form label {
+    display: block;
+    margin-bottom: 4px; /* Added margin for spacing between label and input */
+    font-weight: 500;
+}
+.user-form input, .user-form select {
+    width: 100%;
+    padding: 10px; /* Increased padding for improved clickability */
+    margin-bottom: 12px; /* Spacing between form elements */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+/* Users Table styling with improved spacing and readability */
+.users-table {
+    width: 100%; /* Utilize full space */
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 14px;
+}
+.users-table th, .users-table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
+    color: #1E293B;
+}
+.users-table th {
+    background-color: #ff7300;
+    color: white;
+}
+.users-table tr:nth-child(even) {
+    background-color: #f9f9f9; /* Lighter background for even rows */
+}
+
+/* Button styling - consistent look for all buttons */
+button {
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 16px;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+/* Back button styling */
+.back-button {
+    background-color: #007bff;
+    color: white;
+}
+
+/* Menu button styling in the sidebar */
+.menu-button {
+    background-color: #2D3748;
+    color: white;
+    margin: 6px 0;
+    width: 100%;
+    padding: 10px;
+}
+.menu-button:hover {
+    background-color: #4A5568;
+}
+
+/* Edit button styling */
+.edit-button {
+    background-color: #007bff;
+    color: white;
+    margin-right: 5px;
+}
+.edit-button:hover {
+    background-color: #0056b3;
+}
+
+/* Delete button styling with distinct color */
+.delete-button {
+    background-color: #dc3545;
+    color: white;
+}
+.delete-button:hover {
+    background-color: #a71d2a;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+    .manage-users-container {
+        grid-template-columns: 1fr; 
+        grid-template-rows: auto auto;
+    }
+    .sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #374151;
+    }
+    .main-content {
+        padding: 20px;
+    }
+}
+
+
+
+
+/* Global Layout
+.manage-users-container {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    grid-template-rows: auto 1fr; 
+    height: 100vh;
+    width: 100wh;
+    font-family: 'Inter', sans-serif;
+    background-color: #F3F4F6;
+    color: #1E293B;
+    margin: 0;
+    padding: 0;
+}
+
+/* Sidebar */
+/* .sidebar {
+    grid-row: 1 / -1; 
+    grid-column: 1 / 2;
+    background-color: #1F2937;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-right: 1px solid #374151;
+    height: 100vh;
+    color: #E5E7EB;
+    width: 100%; 
+} */
+
+/* Sidebar Menu */
+/* .menu-options {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+} */
+
+/* Top Header */
+/* .top-header {
+    grid-row: 1 / 2;
+    grid-column: 2 / -1;
+    background-color: #ffffff;
+    padding: 12px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #CBD5E0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    width: 100%;
+} */
+
+/* Main Content */
+/* .main-content {
+    grid-row: 2 / -1;
+    grid-column: 2 / -1;
+    padding: 100px;
+    width: 150%;
+    height: calc(100vh - 60px);
+    box-sizing: border-box;
+    overflow-y: auto;
+} */
+
+
+
+/* Utilize Full Screen in Manage Users Section */
+/* .manage-users-container {
+    width: 100%; 
+    height: 100%; 
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+} */
+
+/* User Form */
+/* .user-form {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+} */
+
+/* Users Table */
+/* .users-table {
+    width: 80%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.users-table th, .users-table td {
+    border: 1px solid #ddd;
+    padding: 12px;  */
+    /* text-align: center;
+    color: black;
+}
+
+.users-table th {
+    background-color: #ff7300;
+    color: white;
+}
+
+.users-table tr:nth-child(even) {
+    background-color: #f2f2f2; */
+
+
+/* Action Buttons */
+/* .users-table button {
+    background-color: #007bff;
+    color: white;
+    padding: 8px 12px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.users-table button:hover {
+    background-color: #0056b3;
+}
+
+.users-table button:last-child {
+    background-color: #dc3545;
+}
+
+.users-table button:last-child:hover {
+    background-color: #a71d2a;
+}  */
