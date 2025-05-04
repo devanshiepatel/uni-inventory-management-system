@@ -25,33 +25,8 @@ app.use(express.json());
 app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 
 
-const SECRET_KEY = process.env.JWT_SECRET || "your-secret-key"; // 🔒 Store securely in .env
+const SECRET_KEY = process.env.JWT_SECRET || "your-secret-key"; // Store securely in .env
 
-// const sendEmail = async (email, user_id, password) => {
-//     try {
-//         let transporter = nodemailer.createTransport({
-//             service: "gmail",
-//             auth: {
-//                 user: process.env.EMAIL_USER,
-//                 pass: process.env.EMAIL_PASS,
-//             },
-//         });
-
-//         let mailOptions = {
-//             from: process.env.EMAIL_USER,
-//             to: email,
-//             subject: "UIMS Account Created",
-//             text: `Hello,\n\nYour UIMS account has been created!\n\nLogin Credentials:\nUser ID: ${user_id}\nPassword: ${password}\n\nPlease change your password after logging in.\n\nBest Regards,\nUIMS Team`,
-//         };
-
-//         await transporter.sendMail(mailOptions);
-//         console.log(`📩 Email sent to ${email}`);
-//     } catch (error) {
-//         console.error("❌ Error sending email:", error);
-//     }
-// };
-// ✅ Middleware to Verify Token
-// Fetch unread notifications for a department admin
 app.get("/notifications/:email", (req, res) => {
     const { email } = req.params;
     db.query(
@@ -126,7 +101,6 @@ const verifyToken = (req, res, next) => {
 };
 
 
-// API: Login
 // API: Login
 app.post("/api/login", (req, res) => {
     const { email, password } = req.body;
@@ -335,21 +309,26 @@ app.post("/api/inventory", verifyToken, (req, res) => {
 //update item
 app.put("/api/inventory/:itemId", verifyToken, (req, res) => {
     const { itemId } = req.params;
-    const { i_name, category, quantity, room_id, condition, last_maintenance_date } = req.body;
+    const { i_name, category, quantity, room_id, status, last_maintenance_date } = req.body;
     const { role } = req.user;
 
     if (role !== "admin") {
-        return res.status(403).json({ message: "❌ Unauthorized: Only admins can update inventory items." });
+        return res.status(403).json({ message: " Unauthorized: Only admins can update inventory items." });
     }
 
     const q = "UPDATE inventory_items SET i_name = ?, category = ?, quantity = ?,room_id = ?, status = ?, last_maintenance_date = ? WHERE item_id = ?";
-    db.query(q, [i_name, category, quantity,room_id, condition, last_maintenance_date], (err, result) => {
-        if (err) {
-            console.error("❌ Error updating inventory item:", err);
+    db.query(
+        q,
+        [i_name, category, quantity, room_id, status, last_maintenance_date, itemId],
+        (err, result) => {
+          if (err) {
+            console.error(" Error updating inventory item:", err);
             return res.status(500).json({ error: "Database error" });
+          }
+          res.json({ message: " Inventory item updated successfully!" });
         }
-        res.json({ message: "✅ Inventory item updated successfully!" });
-    });
+      );
+      
 });
 
 
@@ -411,60 +390,7 @@ app.delete("/api/inventory/:itemId", verifyToken, (req, res) => {
          res.json({ message: "User registered successfully!", user_id });
      });
  });
-// app.post("/api/register", async (req, res) => {
-//     try {
-//         const token = req.headers.authorization?.split(" ")[1];
-//         if (!token) return res.status(401).json({ message: "Access Denied! No token provided." });
 
-//         let decoded;
-//         try {
-//             decoded = jwt.verify(token, SECRET_KEY);
-//         } catch (err) {
-//             return res.status(403).json({ message: "Invalid token" });
-//         }
-
-//         const dept_id = decoded.dept_id;
-//         if (!dept_id) {
-//             return res.status(403).json({ message: "Unauthorized: Missing department info" });
-//         }
-
-//         const { username, email, password, role, research_area } = req.body;
-//         if (!username || !email || !password || !role) {
-//             return res.status(400).json({ message: "Username, email, password, and role are required" });
-//         }
-
-//         const user_id = uuidv4();
-//         const hashedPassword = await bcrypt.hash(password, 10); // 🔐 Hash the provided password
-
-//         const insertUserQuery = "INSERT INTO users (user_id, user_name, user_email, password_hash, role, dept_id) VALUES (?, ?, ?, ?, ?, ?)";
-//         db.query(insertUserQuery, [user_id, username, email, hashedPassword, role, dept_id], async (err, result) => {
-//             if (err) {
-//                 console.error("❌ Error registering user:", err);
-//                 return res.status(500).json({ message: "Database error", error: err });
-//             }
-
-//             if (role === "professor" && research_area) {
-//                 const insertProfessorQuery = "INSERT INTO professors (user_id, research_area, dept_id) VALUES (?, ?, ?)";
-//                 db.query(insertProfessorQuery, [user_id, research_area, dept_id], (err, result) => {
-//                     if (err) {
-//                         console.error("❌ Error inserting professor data:", err);
-//                         return res.status(500).json({ message: "Database error while inserting professor data", error: err });
-//                     }
-//                 });
-//             }
-
-//             // 📩 Send email with the password entered by HOD/Admin
-//             await sendEmail(email, user_id, password);
-
-//             console.log("✅ User registered successfully:", { user_id, username, role, dept_id });
-//             res.json({ message: "User registered successfully! Email sent.", user_id });
-//         });
-
-//     } catch (error) {
-//         console.error("❌ Error registering user:", error);
-//         res.status(500).json({ message: "Internal server error", error });
-//     }
-// });
 
 // API: Update User (HOD/Admin)
 app.put("/api/update/:user_id", verifyToken, (req, res) => {
@@ -578,16 +504,16 @@ app.get("/api/rooms/:dept_id", verifyToken, (req, res) => {
      });
  });
 
- app.get("/api/departments", verifyToken, (req, res) => {
-    const q = "SELECT dept_id, dept_name FROM departments";
-    db.query(q, (err, data) => {
-        if (err) {
-            console.error("❌ Error fetching departments:", err);
-            return res.status(500).json({ message: "Database error", error: err });
-        }
-        res.json(data);
-    });
-});
+//  app.get("/api/departments", verifyToken, (req, res) => {
+//     const q = "SELECT dept_id, dept_name FROM departments";
+//     db.query(q, (err, data) => {
+//         if (err) {
+//             console.error("❌ Error fetching departments:", err);
+//             return res.status(500).json({ message: "Database error", error: err });
+//         }
+//         res.json(data);
+//     });
+// });
 
 // ✅ Fetch Professors by Department
 app.get("/api/professors/:deptId", verifyToken, (req, res) => {
@@ -752,10 +678,7 @@ app.post("/api/superadmin/create-department", verifyToken, (req, res) => {
 });
 
 
-
-
-
-app.get('/rooms/:dept_id', (req, res) => {
+app.get('/api/rooms/:dept_id', (req, res) => {
      const department_id = req.params.dept_id;
 
      if (!department_id) {

@@ -1,0 +1,68 @@
+/* Room Section */
+.rooms-container {
+    padding: 20px;
+    margin-top: 20px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(255, 140, 0, 0.2);
+}
+
+/* Room Title */
+.rooms-container h3 {
+    text-align: center;
+    color: #FF6100;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+/* Room Grid */
+.room-list {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    padding-top: 15px;
+}
+
+/* Room Card */
+.room-card {
+    background-color: #ffffff;
+    border: 2px solid #FF8C00;
+    border-radius: 10px;
+    padding: 15px;
+    width: 200px;
+    text-align: center;
+    transition: 0.3s ease-in-out;
+    box-shadow: 0 5px 10px rgba(255, 140, 0, 0.3);
+}
+
+.room-card:hover {
+    background-color: #FFF3E0;
+    border-color: #FF4500;
+    transform: scale(1.05);
+    box-shadow: 0 5px 20px rgba(255, 140, 0, 0.4);
+}
+
+/* Room Type Badge */
+.room-type {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.classroom {
+    background-color: #FFCC00;
+    color: #4D3900;
+}
+
+.lab {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.utility {
+    background-color: #2196F3;
+    color: white;
+}

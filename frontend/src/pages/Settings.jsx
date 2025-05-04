@@ -11,7 +11,8 @@ const Settings = () => {
     const navigate = useNavigate();
     const { user } = useContext(AuthContext); 
     const [currentPassword, setCurrentPassword] = useState("");
-    const [newPassword, setNewPassword] = useState("");  
+    const [newPassword, setNewPassword] = useState("");
+    const [activeView, setActiveView] = useState("dashboard");  
         const { deptId, userRole, userId } = useContext(AuthContext);
     
         const [userName, setUserName] = useState(localStorage.getItem("userName") || "");
@@ -60,7 +61,14 @@ const Settings = () => {
                                                                 <p className="user-name">{userName}</p>
                                                 
                                                                 <div className="menu-options">
-                                                                    <button className="menu-button" onClick={() => navigate("/dashboard")}>Dashboard</button>
+                                                                    
+                                                                    {(userRole === "super_admin" ) && (
+                                                                        <button className="menu-button" onClick={() => navigate("/superadmin")}>Dashboard</button>
+                                                                     )}
+                                                                    {(userRole === "hod" || userRole === "admin") && (
+
+                                                                        <button className="menu-button" onClick={() => navigate("/dashboard")}>Dashboard</button>
+                                                                    )}
                                                                     {(userRole === "hod" || userRole === "admin") && (
                                                                         <button className="menu-button" onClick={() => navigate("/manage-users")}>Manage Users</button>
                                                                     )}

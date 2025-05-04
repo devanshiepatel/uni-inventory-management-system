@@ -17,6 +17,9 @@ import ManageUsers from "./pages/ManageUsers";
 import ManageInventory from "./pages/ManageInventory";
 import InventoryTable from "./pages/InventoryTable";
 import Settings from "./pages/Settings";
+import RoomCards from "./pages/RoomCards";
+import SidebarInventoryAlerts from "./pages/SidebarInventoryAlerts";
+
 
 
 function App() {
@@ -61,9 +64,11 @@ function App() {
                     <Route path="/changepassword" element={<ChangePassword user_id={userId} />} />
                     <Route path="/manage-users" element={<ManageUsers />} />
                     <Route path="/rooms/:roomType" element={<Rooms />} />
+                    <Route path="/roomcards/:roomType" element={<RoomCards />} />
                     <Route path="/inventory/:roomId" element={<InventoryTable />} />
                     <Route path="/manage-inventory" element={<ManageInventory />} />
                     <Route path="/settings" element={<Settings/>}/>
+                    <Route path="/sidebar-inventory-alerts" element={<SidebarInventoryAlerts/>}/>
                 </Routes>
             </header>
         </div>

@@ -56,33 +56,49 @@ const Rooms = () => {
                 
                 /* Top Header styling */
                 .top-header {
-                  grid-column: 2 / -1;
-                  grid-row: 1;
-                  background-color: #ffffff;
-                  padding: 16px 20px;
-                  display: flex;
-                  align-items: center;
-                  justify-content: space-between;
-                  border-bottom: 1px solid #CBD5E0;
-                  position: sticky;
-                  top: 0;
-                  z-index: 1000;
-                   width:100%;
-                }
-                
-                .back-button {
-                  background-color: #007bff;
-                  color: white;
-                  border: none;
-                  border-radius: 5px;
-                  padding: 10px 16px;
-                  cursor: pointer;
-                  font-size: 14px;
-                  transition: background-color 0.3s;
-                }
-                .back-button:hover {
-                  background-color: #0056b3;
-                }
+  grid-column: 2 / -1;
+  grid-row: 1;
+  background-color: #ffffff;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #CBD5E0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+}
+
+.back-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 16px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s;
+  min-width: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20px;
+  box-sizing: border-box;
+    height: 30px; 
+  transform: translateZ(0);
+  margin-top: -10px; 
+}
+
+.back-button:hover {
+  background-color:rgb(197, 216, 236);
+  /* Subtle brightness change */
+  filter: brightness(110%); /* Increase brightness on hover */
+}
+
+.back-button:active {
+ 
+  filter: brightness(90%);
+}
                 
                 .university-name {
                   margin: 0;

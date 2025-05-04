@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useRef } from "react";
 import axios from "axios";
 import "./ManageInventory.css";
 import { AuthContext } from "../auth/AuthContext";
@@ -8,7 +8,7 @@ import { FaUserCircle } from "react-icons/fa";
 const ManageInventory = () => {
     const { deptId, userRole } = useContext(AuthContext); // Get deptId from AuthContext
     const [inventory, setInventory] = useState([]);
-    const [selectedItem, setSelectedItem] = useState(null);
+    const [selectedItemId, setSelectedItemId] = useState(null);
     const [itemName, setItemName] = useState("");
     const [itemId, setId] = useState("");
     const [status, setStatus] = useState("");
@@ -16,7 +16,9 @@ const ManageInventory = () => {
     const [room_id, setRoomId] = useState("");
     const [category, setCategory] = useState("");
     const [lastMaintenance, setLastMaintenance] = useState("");
-    const navigate = useNavigate();  
+    const navigate = useNavigate(); 
+    const formRef = useRef(null);
+ 
     const [userName, setUserName] = useState(localStorage.getItem("userName") || "");
     
 
@@ -32,7 +34,7 @@ const ManageInventory = () => {
             });
             setInventory(response.data);
         } catch (error) {
-            console.error("❌ Error fetching inventory:", error);
+            console.error("Error fetching inventory:", error);
         }
     };
 
@@ -53,28 +55,29 @@ const ManageInventory = () => {
                 },
                 { headers: { Authorization: `Bearer ${token}` } }
             );
-            alert("✅ Inventory item added successfully!");
+            alert("Inventory item added successfully!");
             fetchInventory();
             resetForm();
         } catch (error) {
-            console.error("❌ Error adding item:", error);
+            console.error(" Error adding item:", error);
         }
     };
 
-    const handleUpdateItem = async () => {
-        if (!selectedItem) return;
+    const handleUpdateItem = async (e) => {
+        e.preventDefault();
+        if (!selectedItemId) return;
         try {
             const token = localStorage.getItem("token");
             await axios.put(
-                `http://localhost:8800/api/inventory/${selectedItem}`,
+                `http://localhost:8800/api/inventory/${selectedItemId}`,
                 {item_id: itemId, i_name: itemName, category, quantity, room_id, status, last_maintenance_date: lastMaintenance },
                 { headers: { Authorization: `Bearer ${token}` } }
             );
-            alert("✅ Inventory item updated successfully!");
+            alert("Inventory item updated successfully!");
             fetchInventory();
             resetForm();
         } catch (error) {
-            console.error("❌ Error updating item:", error);
+            console.error("Error updating item:", error);
         }
     };
 
@@ -99,7 +102,7 @@ const ManageInventory = () => {
         setRoomId("");
         setStatus("");
         setLastMaintenance("");
-        setSelectedItem(null);
+        setSelectedItemId(null);
     };
 
     return (
@@ -130,17 +133,17 @@ const ManageInventory = () => {
     
                 {/* Add / Update Inventory Form */}
                 {userRole === "admin" && (
-                    <div className="inventory-form">
-                        <h3>{selectedItem ? "Update Item" : "Add New Item"}</h3>
-                        <form onSubmit={selectedItem ? handleUpdateItem : handleAddItem}>
-                            <input type="text" placeholder="Item Id" value={itemId} onChange={(e) => setId(e.target.value)} required />
-                            <input type="text" placeholder="Item Name" value={itemName} onChange={(e) => setItemName(e.target.value)} required />
+                    <div className="inventory-form" ref={formRef}>
+                    <h3>{selectedItemId ? "Update Item" : "Add New Item"}</h3>
+                        <form onSubmit={selectedItemId ? handleUpdateItem : handleAddItem}>
+                        <input type="text" placeholder="Item Id" value={itemId} onChange={(e) => setId(e.target.value)} required disabled={selectedItemId !== null} />
+                        <input type="text" placeholder="Item Name" value={itemName} onChange={(e) => setItemName(e.target.value)} required />
                             <input type="text" placeholder="Category" value={category} onChange={(e) => setCategory(e.target.value)} required />
                             <input type="number" placeholder="Quantity" value={quantity} onChange={(e) => setQuantity(e.target.value)} required />
                             <input type="text" placeholder="RoomId" value={room_id} onChange={(e) => setRoomId(e.target.value)} required />
                             <input type="text" placeholder="Condition" value={status} onChange={(e) => setStatus(e.target.value)} required />
                             <input type="date" placeholder="Last Maintenance Date" value={lastMaintenance} onChange={(e) => setLastMaintenance(e.target.value)} />
-                            <button type="submit">{selectedItem ? "Update Item" : "Add Item"}</button>
+                            <button type="submit">{selectedItemId ? "Update Item" : "Add Item"}</button>
                         </form>
                     </div>
                 )}
@@ -172,13 +175,16 @@ const ManageInventory = () => {
                                     {userRole === "admin" && (
                                         <td>
                                             <button onClick={() => { 
-                                                setSelectedItem(item.item_id); 
+                                                setSelectedItemId(item.item_id); 
                                                 setItemName(item.i_name);
                                                 setCategory(item.category);
                                                 setQuantity(item.quantity);
                                                 setRoomId(item.room_id);
                                                 setStatus(item.status);
                                                 setLastMaintenance(item.last_maintenance_date);
+                                                setTimeout(() => {
+                                                    formRef.current?.scrollIntoView({ behavior: "smooth" });
+                                                }, 100);
                                             }}>
                                                 Edit
                                             </button>

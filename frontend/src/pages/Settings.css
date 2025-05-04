@@ -83,16 +83,19 @@
 .back-button {
     background-color: transparent;
     border: none;
-    color: #2563EB;
+    color: #007bff;
     font-size: 0.9em; /* Made smaller */
     cursor: pointer;
     margin-right: 15px;
     width: auto;
     transition: color 0.3s ease;
+    transform: translateZ(0);
+  margin-top: -15px; 
+  padding: 7px;
 }
 
 .back-button:hover {
-    color: #1E40AF;
+    color: #dce0f0;
 }
 
 /* University Name */

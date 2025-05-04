@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useRef } from "react";
 import axios from "axios";
 import { AuthContext } from "../auth/AuthContext";
 import { useParams, useNavigate } from "react-router-dom";
@@ -14,6 +14,7 @@ const ManageUsers = () => {
     const [password, setPassword] = useState(""); // New password field
     const { deptId, userRole, userId } = useContext(AuthContext);
     const navigate = useNavigate();  
+    const updateFormRef = useRef(null);
     const [userName, setUserName] = useState(localStorage.getItem("userName") || "");
 
     useEffect(() => {
@@ -151,39 +152,55 @@ const ManageUsers = () => {
                 }
                 
                 /* Top Header styling */
-                .top-header {
-                  grid-column: 2 / -1;
-                  grid-row: 1;
-                  background-color: #ffffff;
-                  padding: 16px 20px;
-                  display: flex;
-                  align-items: center;
-                  justify-content: space-between;
-                  border-bottom: 1px solid #CBD5E0;
-                  position: sticky;
-                  top: 0;
-                  z-index: 1000;
-                  width:100%;
-                }
-                
-                .back-button {
-                  background-color: #007bff;
-                  color: white;
-                  border: none;
-                  border-radius: 5px;
-                  padding: 10px 16px;
-                  cursor: pointer;
-                  font-size: 14px;
-                  transition: background-color 0.3s;
-                }
-                .back-button:hover {
-                  background-color: #0056b3;
-                }
-                
-                .university-name {
-                  margin: 0;
-                  font-size: 1.5rem;
-                }
+.top-header {
+  grid-column: 2 / -1;
+  grid-row: 1;
+  background-color: #ffffff;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #CBD5E0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+}
+
+.back-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 16px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s;
+  min-width: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20px;
+  box-sizing: border-box;
+    height: 30px; 
+  transform: translateZ(0);
+  margin-top: -10px; 
+}
+
+.back-button:hover {
+  background-color:rgb(106, 144, 184);
+  /* Subtle brightness change */
+  filter: brightness(110%); /* Increase brightness on hover */
+}
+
+.back-button:active {
+ 
+  filter: brightness(90%);
+}
+
+.university-name {
+  margin: 0;
+  font-size: 1.5rem;
+}
                 
                 /* Sidebar styling */
                 .sidebar {
@@ -414,13 +431,17 @@ const ManageUsers = () => {
                                     <td>{user.role}</td>
                                     <td>
                                         {/* Prevent editing or deleting self */}
-                                        {user.user_id !== userId && (
+                                        {(user.user_id !== userId && user.role !=='hod') && (
                                             <>
                                                 <button className="edit-button" onClick={() => { 
                                                     setSelectedUser(user.user_id); 
                                                     setUsername(user.user_name); 
                                                     setEmail(user.user_email); 
                                                     setRole(user.role); 
+
+                                                    setTimeout(() => {
+                                                      updateFormRef.current?.scrollIntoView({ behavior: "smooth" });
+                                                    }, 0);
                                                 }}>
                                                     Edit
                                                 </button>
@@ -435,7 +456,8 @@ const ManageUsers = () => {
 
                     {/* Update User Section */}
                     {selectedUser && selectedUser !== userId && (
-                        <div className="user-form">
+                        <div className="user-form"  ref={updateFormRef}>
+                          
                             <h3>Update User</h3>
                             <label>Username</label>
                             <input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} required />
@@ -449,6 +471,7 @@ const ManageUsers = () => {
                                 <option value="professor">Professor</option>
                             </select>
                             <button onClick={handleUpdateUser}>Update User</button>
+                            <button type="button" onClick={resetForm}>Cancel</button>
                         </div>
                     )}
                 </div>

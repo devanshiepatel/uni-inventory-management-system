@@ -1,106 +1,3 @@
-// import React, { useEffect, useState, useContext } from "react";
-// import { useParams ,useNavigate} from "react-router-dom";
-// import axios from "axios";
-// import "./InventoryTable.css";
-// import { FaUserCircle } from "react-icons/fa";
-// import { AuthContext } from "../auth/AuthContext";
-
-
-// const InventoryTable = () => {
-//     const { roomId } = useParams();
-//     const [inventory, setInventory] = useState([]);
-//     const [searchTerm, setSearchTerm] = useState("");
-//     const navigate = useNavigate();  
-//     const { userRole, deptId } = useContext(AuthContext); 
-//     const [userName, setUserName] = useState(localStorage.getItem("userName") || "");
-
-
-
-//     useEffect(() => {
-//         const fetchInventory = async () => {
-//             try {
-//                 const token = localStorage.getItem("token");
-//                 const response = await axios.get(`http://localhost:8800/api/inventory/${roomId}`, {
-//                     headers: { Authorization: `Bearer ${token}` },
-//                 });
-//                 setInventory(response.data);
-//             } catch (error) {
-//                 console.error("❌ Error fetching inventory:", error);
-//             }
-//         };
-//         if (roomId) fetchInventory();
-//     }, [roomId]);
-
-//     return (
-        
-//         <div className="inventory-container">
-//             {/* Top Header */}
-//                         <div className="top-header">
-//                             <button className="back-button" onClick={() => navigate(-1)}>← Back</button>
-//                             <h1 className="university-name">Dharmsinh Desai University</h1>
-//                         </div>
-            
-//                         {/* Sidebar */}
-//                         <div className="sidebar">
-//                             <FaUserCircle size={50} className="user-icon" />
-//                             <p className="user-name">{userName}</p>
-            
-//                             <div className="menu-options">
-//                                 <button className="menu-button" onClick={() => navigate("/dashboard")}>Dashboard</button>
-//                                 {(userRole === "hod" || userRole === "admin") && (
-//                                     <button className="menu-button" onClick={() => navigate("/manage-users")}>Manage Users</button>
-//                                 )}
-//                                 {userRole === "admin" && (
-//                                     <button className="menu-button" onClick={() => navigate("/manage-inventory")}>Manage Inventory</button>
-//                                 )}
-//                                 <button className="menu-button" onClick={() => navigate("/settings")}>⚙️ Settings</button>
-//                             </div>
-//                         </div>
-//                                                 <div className="main-content">            
-//                                                 <h2>Inventory for Room ID: {roomId}</h2>
-
-//                                                 <input
-//                                                     type="text"
-//                                                     placeholder="🔍 Search items..."
-//                                                     className="search-bar"
-//                                                     value={searchTerm}
-//                                                     onChange={(e) => setSearchTerm(e.target.value)}
-//                                                 />
-
-//                                                 <table className="inventory-table">
-//                                                     <thead>
-//                                                         <tr>
-//                                                             <th>Item Name</th>
-//                                                             <th>Item ID</th>
-//                                                             <th>Category</th>
-//                                                             <th>Quantity</th>
-//                                                             <th>Condition</th>
-//                                                             <th>Last Maintenance</th>
-//                                                         </tr>
-//                                                     </thead>
-//                                                     <tbody>
-//                                                         {inventory
-//                                                             .filter((item) =>
-//                                                                 item.i_name.toLowerCase().includes(searchTerm.toLowerCase())
-//                                                             )
-//                                                             .map((item) => (
-//                                                                 <tr key={item.item_id}>
-//                                                                     <td>{item.i_name}</td>
-//                                                                     <td>{item.item_id}</td>
-//                                                                     <td>{item.category}</td>
-//                                                                     <td>{item.quantity}</td>
-//                                                                     <td>{item.status}</td>
-//                                                                     <td>{item.last_maintenance_date}</td>
-//                                                                 </tr>
-//                                                             ))}
-//                                                     </tbody>
-//                                                 </table>
-//                                                 </div>
-//         </div>
-//     );
-// };
-
-// export default InventoryTable;
 import React, { useEffect, useState, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -124,7 +21,7 @@ const InventoryTable = () => {
                 });
                 setInventory(response.data);
             } catch (error) {
-                console.error("❌ Error fetching inventory:", error);
+                console.error(" Error fetching inventory:", error);
             }
         };
         if (roomId) fetchInventory();
@@ -157,33 +54,49 @@ const InventoryTable = () => {
                 
                 /* Top Header styling */
                 .top-header {
-                  grid-column: 2 / -1;
-                  grid-row: 1;
-                  background-color: #ffffff;
-                  padding: 16px 20px;
-                  display: flex;
-                  align-items: center;
-                  justify-content: space-between;
-                  border-bottom: 1px solid #CBD5E0;
-                  position: sticky;
-                  top: 0;
-                  z-index: 1000;
-                   width:100%;
-                }
-                
-                .back-button {
-                  background-color: #007bff;
-                  color: white;
-                  border: none;
-                  border-radius: 5px;
-                  padding: 10px 16px;
-                  cursor: pointer;
-                  font-size: 14px;
-                  transition: background-color 0.3s;
-                }
-                .back-button:hover {
-                  background-color: #0056b3;
-                }
+  grid-column: 2 / -1;
+  grid-row: 1;
+  background-color: #ffffff;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #CBD5E0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+}
+
+.back-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 16px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s;
+  min-width: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20px;
+  box-sizing: border-box;
+    height: 30px; 
+  transform: translateZ(0);
+  margin-top: -10px; 
+}
+
+.back-button:hover {
+  background-color:rgb(197, 216, 236);
+  /* Subtle brightness change */
+  filter: brightness(110%); /* Increase brightness on hover */
+}
+
+.back-button:active {
+ 
+  filter: brightness(90%);
+}
                 
                 .university-name {
                   margin: 0;

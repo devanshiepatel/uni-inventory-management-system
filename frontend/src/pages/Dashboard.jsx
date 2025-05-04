@@ -4,6 +4,7 @@ import axios from "axios";
 import { FaUserCircle } from "react-icons/fa";
 import { AuthContext } from "../auth/AuthContext";
 import Notifications from "./Notifications";
+import SidebarInventoryAlerts from "./SidebarInventoryAlerts";
 
 const Dashboard = ({ userEmail }) => {
     const [rooms, setRooms] = useState([]);
@@ -74,37 +75,51 @@ const Dashboard = ({ userEmail }) => {
                 
                 /* Top Header styling */
                 .top-header {
-                  grid-column: 2 / -1;
-                  grid-row: 1;
-                  background-color: #ffffff;
-                  padding: 16px 20px;
-                  display: flex;
-                  align-items: center;
-                  justify-content: space-between;
-                  border-bottom: 1px solid #CBD5E0;
-                  position: sticky;
-                  top: 0;
-                  z-index: 1000;
-                   width:100%;
-                }
-                
-                .back-button {
-                  background-color: #007bff;
-                  color: white;
-                  border: none;
-                  border-radius: 5px;
-                  padding: 10px 16px;
-                  cursor: pointer;
-                  font-size: 14px;
-                  transition: background-color 0.3s;
-                }
+  grid-column: 2 / -1;
+  grid-row: 1;
+  background-color: #ffffff;
+  padding: 16px 20px;
+  display: flex; /* Enable Flexbox for the header */
+  align-items: center;
+  /* Remove justify-content: space-between; */
+  border-bottom: 1px solid #CBD5E0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+}
+
+.back-button {
+  /* Add margin-right to push other elements to the right */
+  margin-right: auto;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 14px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  vertical-align: middle;
+  text-rendering: geometricPrecision;
+  transform: translateZ(0);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
                 .back-button:hover {
                   background-color: #0056b3;
-                }
+                } 
+
                 
                 .university-name {
                   margin: 0;
                   font-size: 2.5rem;
+                  margin-left: 20px;
                 }
                 
                 /* Sidebar styling */
@@ -243,7 +258,10 @@ const Dashboard = ({ userEmail }) => {
                             <button className="menu-button" onClick={() => navigate("/manage-inventory")}>Manage Inventory</button>
                         )}
                         <button className="menu-button" onClick={() => navigate("/settings")}>⚙️ Settings</button>
-                        <Notifications userEmail={userEmail} />
+                        {(userRole === "hod" || userRole === "admin") && (
+                            <SidebarInventoryAlerts />
+                        )}
+
                     </div>
                 </div>
 
@@ -264,11 +282,6 @@ const Dashboard = ({ userEmail }) => {
                     </div>
                 </div>
                 
-                {showNotification && (
-                    <div className="notification-popup">
-                        New Notification: {notifications[0]?.message || "You have a new update!"}
-                    </div>
-                )}
             </div>
         </>
     );
